@@ -1,12 +1,13 @@
+import Navbar from './Navbar';
+import SearchBar from './SearchBar';
+import TopBar from './TopBar';
+
 export default function Header() {
-    return (
-    <div>
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/products">Products</a></li>
-          </ul>
-        </nav>
-    </div>
-    )
+  return (
+    <header>
+      <TopBar />
+      <SearchBar />
+      <Navbar />
+    </header>
+  );
 }
