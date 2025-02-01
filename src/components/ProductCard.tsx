@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { AiOutlineHeart, AiOutlineEye, AiFillStar } from 'react-icons/ai';
 import { IoBagOutline } from 'react-icons/io5';
 import clsx from 'clsx';
@@ -8,7 +9,7 @@ interface Product {
   id: number;
   name: string;
   price: number;
-  rating: number; // Giá trị từ 0-5
+  rating: number;
   imageUrl: string;
 }
 
@@ -21,6 +22,8 @@ export default function ProductCard({
   product,
   variant = 'horizontal',
 }: ProductCardProps) {
+  const router = useRouter();
+
   const renderStars = (rating: number) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
@@ -37,6 +40,10 @@ export default function ProductCard({
 
   return (
     <div
+      onClick={() => {
+        // navigate to product details
+        router.push(`/shop/${product.id}`);
+      }}
       className={clsx(
         'border rounded-2xl shadow-sm bg-white flex group overflow-hidden relative transition-shadow hover:shadow-lg',
         {
@@ -59,10 +66,22 @@ export default function ProductCard({
         />
         {variant === 'vertical' && (
           <div className='absolute top-0 right-0 flex flex-col items-center justify-center space-y-2 p-2 opacity-0 group-hover:opacity-100 transition-opacity'>
-            <button className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/shop/${product.id}`);
+              }}
+              className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'
+            >
               <AiOutlineEye size={16} />
             </button>
-            <button className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                // Add logic for adding to wishlist or other action
+              }}
+              className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'
+            >
               <AiOutlineHeart size={16} />
             </button>
           </div>
@@ -85,7 +104,13 @@ export default function ProductCard({
 
           {/* Right section: shopping button */}
           <div className='flex items-center space-x-2'>
-            <button className='p-3 bg-gray-100 rounded-full transition-all hover:bg-customGreen hover:text-white'>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                // Add logic for shopping button click
+              }}
+              className='p-3 bg-gray-100 rounded-full transition-all hover:bg-customGreen hover:text-white'
+            >
               <IoBagOutline size={20} />
             </button>
           </div>
@@ -103,13 +128,31 @@ export default function ProductCard({
           </p>
           <div className='flex mb-2'>{renderStars(product.rating)}</div>
           <div className='flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity'>
-            <button className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                // Logic for shopping button
+              }}
+              className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'
+            >
               <IoBagOutline size={16} />
             </button>
-            <button className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                // Logic for view icon button
+              }}
+              className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'
+            >
               <AiOutlineEye size={16} />
             </button>
-            <button className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                // Logic for heart icon button
+              }}
+              className='p-2 bg-gray-100 text-gray-600 rounded-full transition-all hover:bg-customGreen hover:text-white'
+            >
               <AiOutlineHeart size={16} />
             </button>
           </div>

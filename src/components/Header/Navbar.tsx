@@ -66,43 +66,56 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.classList.add('overflow-hidden'); // Thêm class để ngăn cuộn
+    } else {
+      document.body.classList.remove('overflow-hidden'); // Xóa class để cuộn lại
+    }
+
+    // Cleanup khi component unmount
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [isSidebarOpen]);
+
   return (
-    <nav className='bg-black text-white px-4 py-4 sm:px-6 flex flex-col md:flex-row justify-between items-center relative z-50'>
+    <nav className='bg-black text-white px-4 py-4 sm:px-6 flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between items-center relative'>
       {/* Sidebar Overlay */}
       {isSidebarOpen && (
         <div
-          className='fixed inset-0 bg-black bg-opacity-50 z-10'
+          className='fixed inset-0 bg-black bg-opacity-50 z-50'
           onClick={closeSidebar}
-        ></div>
-      )}
-
-      {/* Sidebar */}
-      <div
-        className={`fixed top-0 left-0 w-64 h-screen bg-white shadow-lg z-20 transform transition-transform duration-300 ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className='p-4 flex justify-between items-center border-b border-gray-300 text-black'>
-          <h2 className='text-lg font-bold'>Categories</h2>
-          <button
-            className='text-gray-500 hover:text-black'
-            onClick={closeSidebar}
+        >
+          {/* Sidebar */}
+          <div
+            className={`fixed top-0 left-0 w-72 h-screen bg-white shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
+              isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
           >
-            <IoMdClose className='text-2xl' />
-          </button>
+            <div className='p-4 flex justify-between items-center border-b border-gray-300 text-black'>
+              <h2 className='text-lg font-bold'>Categories</h2>
+              <button
+                className='text-gray-500 hover:text-black'
+                onClick={closeSidebar}
+              >
+                <IoMdClose className='text-2xl' />
+              </button>
+            </div>
+            <ul className='p-4 space-y-3 text-black'>
+              {categories.map((category, index) => (
+                <li
+                  key={index}
+                  className='flex items-center space-x-3 py-2 px-4 hover:bg-gray-100 rounded cursor-pointer'
+                >
+                  <span className='text-lg'>{category.icon}</span>
+                  <span className='text-md font-medium'>{category.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <ul className='p-4 space-y-3 text-black'>
-          {categories.map((category, index) => (
-            <li
-              key={index}
-              className='flex items-center space-x-3 py-2 px-4 hover:bg-gray-100 rounded cursor-pointer'
-            >
-              <span className='text-lg'>{category.icon}</span>
-              <span className='text-md font-medium'>{category.label}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      )}
 
       {/* Sidebar Trigger */}
       <div className='flex items-center'>
