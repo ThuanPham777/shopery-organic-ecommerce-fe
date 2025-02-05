@@ -7,8 +7,8 @@ import { MdChevronRight } from 'react-icons/md';
 export default function Breadcrumb() {
   const pathname = usePathname(); // Lấy đường dẫn hiện tại
 
-  // Kiểm tra nếu đường dẫn khớp với mẫu /shop/<số> hoặc /blog/<số>
-  const detailMatch = pathname.match(/^\/(shop|blog)\/\d+$/);
+  // Kiểm tra nếu đường dẫn khớp với mẫu /shop/<số> hoặc /blog/<số> hoặc /shop/<chuỗi> hoặc /blog/<chuỗi>
+  const detailMatch = pathname.match(/^\/(shop|blog)\/[a-zA-Z0-9-_.]+$/);
   if (detailMatch) {
     const type = detailMatch[1]; // 'shop' hoặc 'blog'
     const label = type === 'shop' ? 'Shop Details' : 'Blog Details';
