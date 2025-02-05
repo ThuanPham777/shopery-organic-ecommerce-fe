@@ -36,12 +36,8 @@ export default function FeaturedProducts() {
     },
   ];
   return (
-    <div className='py-12 px-6 space-y-8'>
+    <div className='space-y-8'>
       <div>
-        <Title
-          title='Products'
-          description='Our Featured Products'
-        />
         <div className='lg:col-span-3 md:col-span-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6'>
           <div className='col-span-1'>
             <PromotionBanner

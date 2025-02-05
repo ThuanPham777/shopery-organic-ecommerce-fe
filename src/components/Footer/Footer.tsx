@@ -31,7 +31,7 @@ export default function Footer() {
 
   return (
     <div>
-      <div className='bg-gray-900 px-6'>
+      <div className='bg-gray-900 px-6 mt-8'>
         <div className='flex flex-col space-y-4 lg:flex-row items-center justify-between py-12 px-6'>
           <div className='flex space-x-2 items-center'>
             <div>

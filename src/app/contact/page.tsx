@@ -12,7 +12,7 @@ export default function Contact() {
             <CiLocationOn className='text-customGreen text-5xl mt-1' />
             <p>2715 Ash Dr. San Jose, South Dakota 83475</p>
           </div>
-          {/* line */}
+          {/* Separator */}
           <div className='border-b border-gray-300 w-full'></div>
 
           <div className='flex flex-col items-center text-center justify-center gap-4'>
@@ -22,7 +22,7 @@ export default function Contact() {
               <p>Help.proxy@gmail.com</p>
             </div>
           </div>
-          {/* line */}
+          {/* Separator */}
           <div className='border-b border-gray-300 w-full'></div>
 
           <div className='flex flex-col items-center text-center justify-center gap-4'>
@@ -36,8 +36,10 @@ export default function Contact() {
 
         {/* Right Column - Contact Form */}
         <div className='md:col-span-2 rounded-md border shadow-md p-10'>
-          <h2 className='text-2xl font-semibold'>Just Say Hello!</h2>
-          <p className='text-gray-600 mb-6'>
+          <h2 className='text-2xl font-semibold text-center md:text-left'>
+            Just Say Hello!
+          </h2>
+          <p className='text-gray-600 mb-6 text-center md:text-left'>
             Do you fancy saying hi to me or want to get started with your
             project and need help? Feel free to contact me.
           </p>

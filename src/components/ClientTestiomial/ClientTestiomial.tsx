@@ -47,47 +47,39 @@ export default function ClientTestimonial() {
   };
 
   return (
-    <div className='py-10 px-4 bg-gray-100'>
-      <Title
-        title='Client Testimonial'
-        description='What our Client Says'
-      />
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8'>
-        {clients.map((client, index) => (
-          <div
-            key={index}
-            className='p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow space-y-4'
-          >
-            {/* Testimonial Text */}
-            <div>
-              <img
-                src='/images/client_testimonial/quot.png'
-                alt='Quotation mark'
-                className='w-6 h-6'
-              />
-            </div>
-            <p className='text-gray-600 italic mb-6'>
-              &quot;{client.text}&quot;
-            </p>
-            {/* Client Info */}
-            <div className='flex justify-between items-center'>
-              <div className='flex items-center space-x-4'>
-                <img
-                  src={client.image}
-                  alt={client.name}
-                  className='w-12 h-12 rounded-full border border-gray-300'
-                />
-                <div>
-                  <h4 className='text-lg font-semibold'>{client.name}</h4>
-                  <p className='text-sm text-gray-500'>{client.title}</p>
-                </div>
-              </div>
-              {/* Rating */}
-              <div className='flex space-x-1'>{renderStars(client.rating)}</div>
-            </div>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+      {clients.map((client, index) => (
+        <div
+          key={index}
+          className='p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow space-y-4'
+        >
+          {/* Testimonial Text */}
+          <div>
+            <img
+              src='/images/client_testimonial/quot.png'
+              alt='Quotation mark'
+              className='w-6 h-6'
+            />
           </div>
-        ))}
-      </div>
+          <p className='text-gray-600 italic mb-6'>&quot;{client.text}&quot;</p>
+          {/* Client Info */}
+          <div className='flex justify-between items-center'>
+            <div className='flex items-center space-x-4'>
+              <img
+                src={client.image}
+                alt={client.name}
+                className='w-12 h-12 rounded-full border border-gray-300'
+              />
+              <div>
+                <h4 className='text-lg font-semibold'>{client.name}</h4>
+                <p className='text-sm text-gray-500'>{client.title}</p>
+              </div>
+            </div>
+            {/* Rating */}
+            <div className='flex space-x-1'>{renderStars(client.rating)}</div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

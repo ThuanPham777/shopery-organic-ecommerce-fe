@@ -7,6 +7,7 @@ import HeroBanner from '@/components/HeroBanner/HeroBanner';
 import HeroSlider from '@/components/HeroSlider/HeroSlider';
 import IntroVideo from '@/components/IntroVideo/IntroVideo';
 import TeamMembers from '@/components/TeamMembers/TeamMembers';
+import Title from '@/components/Title';
 
 export default function Home() {
   return (
@@ -14,11 +15,35 @@ export default function Home() {
       <HeroSlider />
       <Feature />
       <HeroBanner />
-      <Categories />
-      <FeaturedProducts />
+      <div className='px-4'>
+        <Title
+          title='Category'
+          description='Shop By Top Categories'
+        />
+        <Categories />
+      </div>
+      <div className='px-4'>
+        <Title
+          title='Products'
+          description='Our Featured Products'
+        />
+        <FeaturedProducts />
+      </div>
       <IntroVideo />
-      <TeamMembers />
-      <ClientTestimonial />
+      <div className='px-4 py-8'>
+        <Title
+          title='Team'
+          description='Our Professional Members'
+        />
+        <TeamMembers />
+      </div>
+      <div className='bg-gray-200 py-8 px-4'>
+        <Title
+          title='Client Testimonial'
+          description='What our Client Says'
+        />
+        <ClientTestimonial />
+      </div>
       <Brand />
     </div>
   );

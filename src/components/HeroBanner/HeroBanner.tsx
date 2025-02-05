@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function HeroBanner() {
   interface BannerItem {
@@ -9,7 +9,7 @@ export default function HeroBanner() {
     buttonText: string;
     backgroundImage: string;
     textColor: string;
-    link: string
+    link: string;
   }
 
   const banners: BannerItem[] = [
@@ -46,7 +46,7 @@ export default function HeroBanner() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-4 p-4'>
       {banners.map((banner) => (
         <div
           key={banner.id}
@@ -58,13 +58,17 @@ export default function HeroBanner() {
             height: '100vh', // Full chiều cao màn hình
           }}
         >
-          <div className="relative z-10 mt-10">
-            <h3 className="text-lg uppercase font-semibold">{banner.subtitle}</h3>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">{banner.title}</h2>
-            <p className="mt-4 text-sm md:text-base">{banner.description}</p>
+          <div className='relative z-10 mt-10'>
+            <h3 className='text-lg uppercase font-semibold'>
+              {banner.subtitle}
+            </h3>
+            <h2 className='text-3xl md:text-4xl font-bold mt-2'>
+              {banner.title}
+            </h2>
+            <p className='mt-4 text-sm md:text-base'>{banner.description}</p>
             <Link href={banner.link}>
-              <button className="mt-6 px-6 py-3 bg-customGreen text-white rounded-lg hover:bg-hoverGreen">
-              {banner.buttonText}
+              <button className='mt-6 px-6 py-3 bg-customGreen text-white rounded-lg hover:bg-hoverGreen'>
+                {banner.buttonText}
               </button>
             </Link>
           </div>

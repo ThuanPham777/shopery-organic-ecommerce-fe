@@ -9,21 +9,19 @@ export default function Brand() {
   ];
 
   return (
-    <div className='py-10 px-4'>
-      <div className='flex flex-wrap gap-4 justify-center md:justify-between items-center'>
-        {brands.map((item) => (
-          <div
-            key={item.image}
-            className='flex justify-center'
-          >
-            <img
-              src={item.image}
-              alt={item.image}
-              className='max-w-full h-auto object-contain'
-            />
-          </div>
-        ))}
-      </div>
+    <div className='flex flex-wrap gap-4 justify-center md:justify-between items-center p-4 py-8'>
+      {brands.map((item) => (
+        <div
+          key={item.image}
+          className='flex justify-center'
+        >
+          <img
+            src={item.image}
+            alt={item.image}
+            className='max-w-full h-auto object-contain'
+          />
+        </div>
+      ))}
     </div>
   );
 }
