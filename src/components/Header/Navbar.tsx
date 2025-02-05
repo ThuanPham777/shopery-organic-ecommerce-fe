@@ -8,6 +8,7 @@ import { CiUser } from 'react-icons/ci';
 import { IoMdClose } from 'react-icons/io';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -40,6 +41,7 @@ const categories = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isNavLinksOpen, setIsNavLinksOpen] = useState(false);
   const [clickedNav, setClickedNav] = useState<string | null>(null);
@@ -184,9 +186,8 @@ export default function Navbar() {
             {nav.sublinks && clickedNav === nav.label && (
               <ul
                 className={`${
-                  isNavLinksOpen
-                    ? ''
-                    : 'absolute top-full left-1/2 transform -translate-x-1/2'
+                  isNavLinksOpen &&
+                  'absolute top-full left-1/2 transform -translate-x-1/2 z-50'
                 } bg-black shadow-lg text-white w-48 mt-2 rounded-md`}
               >
                 {nav.sublinks.map((sublink, subIndex) => (
@@ -209,7 +210,12 @@ export default function Navbar() {
       <div className='flex space-x-4 text-2xl'>
         <IoIosHeartEmpty className='cursor-pointer hover:text-customGreen' />
         <IoBagOutline className='cursor-pointer hover:text-customGreen' />
-        <CiUser className='cursor-pointer hover:text-customGreen' />
+        <CiUser
+          onClick={() => {
+            router.push('/login');
+          }}
+          className='cursor-pointer hover:text-customGreen'
+        />
       </div>
     </nav>
   );
