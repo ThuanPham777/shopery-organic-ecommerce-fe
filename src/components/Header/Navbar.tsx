@@ -197,7 +197,8 @@ export default function Navbar() {
         />
         <CiUser
           onClick={() => {
-            router.push('/login');
+            //router.push('/login');
+            router.push('/myaccount');
           }}
           className='cursor-pointer hover:text-customGreen'
         />
