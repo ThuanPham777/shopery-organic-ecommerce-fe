@@ -5,10 +5,11 @@ import { FaBars } from 'react-icons/fa';
 import { IoBagOutline } from 'react-icons/io5';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import { CiUser } from 'react-icons/ci';
-import { IoMdClose } from 'react-icons/io';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import CartOffset from '../ShoppingCart/CartOffset';
+import CategoryOffset from '../Categories/CategoryOffset';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -21,7 +22,7 @@ const navLinks = [
     href: '#',
     dropdownIcon: <RiArrowDropDownLine />,
     sublinks: [
-      { label: 'Shopping cart', href: '/shopping-cart' },
+      { label: 'Shopping cart', href: '/cart' },
       { label: 'Checkout', href: '/checkout' },
       { label: 'Wishlist', href: '/wishlist' },
     ],
@@ -47,8 +48,9 @@ export default function Navbar() {
   const [clickedNav, setClickedNav] = useState<string | null>(null);
   const navRef = useRef<HTMLUListElement>(null);
 
+  const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
+
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-  const closeSidebar = () => setIsSidebarOpen(false);
   const toggleNavLinks = () => setIsNavLinksOpen(!isNavLinksOpen);
 
   const handleNavClick = (label: string) => {
@@ -69,7 +71,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (isSidebarOpen) {
+    if (isSidebarOpen || isShoppingCartOpen) {
       document.body.classList.add('overflow-hidden'); // Thêm class để ngăn cuộn
     } else {
       document.body.classList.remove('overflow-hidden'); // Xóa class để cuộn lại
@@ -79,45 +81,22 @@ export default function Navbar() {
     return () => {
       document.body.classList.remove('overflow-hidden');
     };
-  }, [isSidebarOpen]);
+  }, [isSidebarOpen, isShoppingCartOpen]);
 
   return (
     <nav className='bg-black text-white px-4 py-4 sm:px-6 flex flex-col space-y-4 md:flex-row md:space-y-0 justify-between items-center relative'>
-      {/* Sidebar Overlay */}
-      {isSidebarOpen && (
-        <div
-          className='fixed inset-0 bg-black bg-opacity-50 z-50'
-          onClick={closeSidebar}
-        >
-          {/* Sidebar */}
-          <div
-            className={`fixed top-0 left-0 w-72 h-screen bg-white shadow-lg z-50 transform transition-transform duration-300 overflow-y-auto ${
-              isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-            }`}
-          >
-            <div className='p-4 flex justify-between items-center border-b border-gray-300 text-black'>
-              <h2 className='text-lg font-bold'>Categories</h2>
-              <button
-                className='text-gray-500 hover:text-black'
-                onClick={closeSidebar}
-              >
-                <IoMdClose className='text-2xl' />
-              </button>
-            </div>
-            <ul className='p-4 space-y-3 text-black'>
-              {categories.map((category, index) => (
-                <li
-                  key={index}
-                  className='flex items-center space-x-3 py-2 px-4 hover:bg-gray-100 rounded cursor-pointer'
-                >
-                  <span className='text-lg'>{category.icon}</span>
-                  <span className='text-md font-medium'>{category.label}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
+      {/* sidebar shoppingcart Overlay */}
+      <CategoryOffset
+        categories={categories}
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
+
+      {/* sidebar shoppingcart Overlay */}
+      <CartOffset
+        isShoppingCartOpen={isShoppingCartOpen}
+        setIsShoppingCartOpen={setIsShoppingCartOpen}
+      />
 
       {/* Sidebar Trigger */}
       <div className='flex items-center'>
@@ -186,8 +165,9 @@ export default function Navbar() {
             {nav.sublinks && clickedNav === nav.label && (
               <ul
                 className={`${
-                  isNavLinksOpen &&
-                  'absolute top-full left-1/2 transform -translate-x-1/2 z-50'
+                  isNavLinksOpen
+                    ? ''
+                    : 'absolute top-full left-1/2 transform -translate-x-1/2 z-50'
                 } bg-black shadow-lg text-white w-48 mt-2 rounded-md`}
               >
                 {nav.sublinks.map((sublink, subIndex) => (
@@ -209,7 +189,12 @@ export default function Navbar() {
       {/* Icons */}
       <div className='flex space-x-4 text-2xl'>
         <IoIosHeartEmpty className='cursor-pointer hover:text-customGreen' />
-        <IoBagOutline className='cursor-pointer hover:text-customGreen' />
+        <IoBagOutline
+          onClick={() => {
+            setIsShoppingCartOpen(!isShoppingCartOpen);
+          }}
+          className='cursor-pointer hover:text-customGreen'
+        />
         <CiUser
           onClick={() => {
             router.push('/login');
